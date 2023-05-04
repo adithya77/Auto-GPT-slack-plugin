@@ -1,9 +1,7 @@
-"""This is a template for Auto-GPT plugins."""
 import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
 
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
-from auto_gpt_slack.slack import send_slack_message
 
 PromptGenerator = TypeVar("PromptGenerator")
 
@@ -59,6 +57,7 @@ class AutoGPT_Slack(AutoGPTPluginTemplate):
             PromptGenerator: The prompt generator.
         """
 
+        from .slack import send_slack_message
         prompt.add_command(
             "send_slack_message",
             "Send message to slack",
@@ -69,7 +68,8 @@ class AutoGPT_Slack(AutoGPTPluginTemplate):
         prompt.add_command(
             "send_slack_message_to_channel",
             "Send message to a specific slack channel",
-            {"message": "Message to send to slack", "channel": "Channel to which the message should be sent"},
+            {"message": "Message to send to slack",
+                "channel": "Channel to which the message should be sent"},
             send_slack_message,
         )
 
@@ -271,7 +271,7 @@ class AutoGPT_Slack(AutoGPTPluginTemplate):
           Returns:
               bool: True if the plugin can handle the text_embedding method."""
         return False
-    
+
     @abc.abstractmethod
     def handle_text_embedding(
         self, text: str
