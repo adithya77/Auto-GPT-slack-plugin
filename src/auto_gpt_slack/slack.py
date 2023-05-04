@@ -8,7 +8,7 @@ slack_token = os.environ["SLACK_BOT_TOKEN"]
 client = WebClient(token=slack_token)
 
 
-def send_slack_message(message: str, channel: Optional[str]):
+def send_slack_message(message: str, channel: Optional[str] = None):
     """
     Send a message to configured Slack channel.
 
