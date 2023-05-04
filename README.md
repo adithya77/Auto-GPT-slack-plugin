@@ -28,8 +28,12 @@ A plugin for AutoGPT which enables access to Slack.
    ALLOWLISTED_PLUGINS=example-plugin1,example-plugin2,example-plugin3
    ```
 
-6. **Add Slack token and default channel to env file: **
+6. **Add Slack token and default channel to AutoGPT .env file:**
    ```
+   ################################################################################
+   ### SLACK API
+   ################################################################################
+
    SLACK_BOT_TOKEN=token
    SLACK_CHANNEL=channel
    ```
