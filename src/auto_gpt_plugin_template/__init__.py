@@ -2,7 +2,8 @@
 import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
 
-from abstract_singleton import AbstractSingleton, Singleton
+from auto_gpt_plugin_template import AutoGPTPluginTemplate
+from auto_gpt_plugin_template.slack import send_slack_message
 
 PromptGenerator = TypeVar("PromptGenerator")
 
@@ -12,16 +13,16 @@ class Message(TypedDict):
     content: str
 
 
-class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
+class AutoGPT_Slack(AutoGPTPluginTemplate):
     """
-    This is a template for Auto-GPT plugins.
+    This is a plugin to send message to slack for Auto-GPT plugins.
     """
 
     def __init__(self):
         super().__init__()
-        self._name = "Auto-GPT-Plugin-Template"
+        self._name = "Auto-GPT-Slack"
         self._version = "0.1.0"
-        self._description = "This is a template for Auto-GPT plugins."
+        self._description = "This is a plugin to send message to slack for Auto-GPT plugins"
 
     @abc.abstractmethod
     def can_handle_on_response(self) -> bool:
@@ -44,7 +45,7 @@ class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
 
         Returns:
             bool: True if the plugin can handle the post_prompt method."""
-        return False
+        return True
 
     @abc.abstractmethod
     def post_prompt(self, prompt: PromptGenerator) -> PromptGenerator:
@@ -57,7 +58,22 @@ class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
         Returns:
             PromptGenerator: The prompt generator.
         """
-        pass
+
+        prompt.add_command(
+            "send_slack_message",
+            "Send message to slack",
+            {"message": "Message to send to slack"},
+            send_slack_message,
+        )
+
+        prompt.add_command(
+            "send_slack_message_to_channel",
+            "Send message to a specific slack channel",
+            {"message": "Message to send to slack", "channel": "Channel to which the message should be sent"},
+            send_slack_message,
+        )
+
+        return prompt
 
     @abc.abstractmethod
     def can_handle_on_planning(self) -> bool:
