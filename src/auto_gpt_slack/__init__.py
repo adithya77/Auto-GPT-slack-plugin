@@ -3,7 +3,7 @@ import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
 
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
-from auto_gpt_plugin_template.slack import send_slack_message
+from auto_gpt_slack.slack import send_slack_message
 
 PromptGenerator = TypeVar("PromptGenerator")
 
