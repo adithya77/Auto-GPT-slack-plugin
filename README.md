@@ -1,6 +1,11 @@
 # AutoGPT-Slack
 A plugin for AutoGPT which enables access to Slack.
 
+## Features
+- [x] Send messages
+- [ ] Recieve commands from slack
+- [ ] Send attachments
+
 ### Plugin Installation Steps
 
 1. **Clone or download the plugin repository:**
