@@ -1,7 +1,9 @@
+import os
 import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
 
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
+from auto_gpt_slack.slack import SlackUtils
 
 PromptGenerator = TypeVar("PromptGenerator")
 
@@ -21,6 +23,7 @@ class AutoGPT_Slack(AutoGPTPluginTemplate):
         self._name = "Auto-GPT-Slack"
         self._version = "0.1.0"
         self._description = "This is a plugin to send message to slack for Auto-GPT plugins"
+        self._slackUtils = SlackUtils(os.environ["SLACK_BOT_TOKEN"], os.environ["SLACK_CHANNEL"])
 
     def can_handle_on_response(self) -> bool:
         """This method is called to check that the plugin can
